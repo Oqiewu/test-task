@@ -1,6 +1,5 @@
 FROM php:8.2-fpm-alpine
 
-# Создайте нового пользователя с указанными идентификаторами
 ARG PUID=1000
 ARG PGID=1000
 RUN apk --no-cache add shadow && \
@@ -9,7 +8,6 @@ RUN apk --no-cache add shadow && \
 
 USER root
 
-# Установите необходимые пакеты и PHP-расширения
 RUN apk add --no-cache \
         autoconf \
         g++ \
@@ -31,7 +29,6 @@ RUN apk add --no-cache \
 
 RUN curl -Ss getcomposer.org/installer | php
 
-# Установите Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 USER www-data
